@@ -1,0 +1,15 @@
+{
+  "name": "crud-nodejs",
+  "version": "1.0.0",
+  "description": "Crud com nodejs Sequelize e mySQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "Douglas Wellington Martins",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
