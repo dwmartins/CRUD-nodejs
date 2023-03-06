@@ -1,23 +1,25 @@
 const database = require('../config/db');
-const Produto = require('./produto_table');
+const Chamados = require('./chamado_table');
 database.sync();
 
-async function todosProdutos() {
-    const produtos = await Produto.findAll();
-    console.log(produtos[0]);
+async function todosChamados() {
+    const produtos = await Chamados.findAll();
 
     return produtos;
 }
 
-async function novoProduto() {
-    const novoProduto = await Produto.create({
-        nome: 'Caixa de som',
-        preco: 80,
-        descricao: 'Caixa de som muito forte'
+async function novoChamado() {
+    const novoProduto = await Chamados.create({
+        nome: 'Pc não liga',
+        assunto: 'PC fica carregando mas não liga',
+        descricao: 'PC da marca dell não liga',
+        historico: 'pendente',
+        responsavel: '',
+        
     })
 }
 
 module.exports = {
-    todosProdutos,
-    novoProduto
+    todosChamados,
+    novoChamado
 }
