@@ -12,10 +12,6 @@ const Chamados = database.define('chamados', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    assunto: {
-        type: Sequelize.DECIMAL,
-        allowNull: false
-    },
     descricao:{ 
         type: Sequelize.STRING,
         allowNull: false

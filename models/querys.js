@@ -11,7 +11,6 @@ async function todosChamados() {
 async function novoChamado() {
     const novoProduto = await Chamados.create({
         nome: 'Pc não liga',
-        assunto: 'PC fica carregando mas não liga',
         descricao: 'PC da marca dell não liga',
         historico: 'pendente',
         responsavel: '',
