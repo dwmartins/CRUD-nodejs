@@ -14,7 +14,7 @@ const Chamados = database.define('chamados', {
     },
     descricao:{ 
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
     status:{
         type: Sequelize.STRING,
@@ -33,7 +33,11 @@ const Chamados = database.define('chamados', {
         allowNull: true
     },
     data_finalizado:{
-        type: Sequelize.DataTypes.INTEGER,
+        type: Sequelize.DATE,
+        allowNull: true
+    },
+    solucao: {
+        type: Sequelize.STRING,
         allowNull: true
     }
 

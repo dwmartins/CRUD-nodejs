@@ -1,5 +1,6 @@
 const querys = require('../models/querys');
 const express = require('express');
+const { query } = require('express');
 const router = express.Router();
 
 router.get('/todos-chamados', async (req, res) => {
@@ -8,14 +9,20 @@ router.get('/todos-chamados', async (req, res) => {
 });
 
 router.post('/novo-chamado', async (req, res) => {
-    const { titulo, descricao, status, autor } = req.body;
-    await querys.novoChamado(titulo, descricao, status, autor);
-    res.status(201).json({mensagem: `O chamado (${titulo}) foi criado com sucessso!`})
+    const { titulo, descricao, autor } = req.body;
+    const result =  await querys.novoChamado(titulo, descricao, autor);
+    res.json(result);
 });
 
-router.put('/atualiza-chamado', async (req, res) => {
-    const { id, status, responsavel, data_execucao } = req.body;
-    const resul = await querys.executaChamado(id, status, responsavel, data_execucao);
+router.put('/executa-chamado', async (req, res) => {
+    const { id, status, responsavel } = req.body;
+    const resul = await querys.executaChamado(id, responsavel);
+    res.status(201).json(resul);
+})
+
+router.put('/finaliza-chamado', async (req, res) => {
+    const { id, solucao} = req.body;
+    const resul = await querys.finalizaChamado(id, solucao);
     res.status(201).json(resul);
 })
 

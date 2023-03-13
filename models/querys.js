@@ -8,20 +8,26 @@ async function todosChamados() {
     return produtos;
 }
 
-async function novoChamado(titulo, descricao, status, autor) {
-    const novoProduto = await Chamados.create({
-        titulo: titulo,
-        descricao: descricao,
-        status: status,
-        autor: autor,
-    })
+async function novoChamado(titulo, descricao, autor) {
+    try {
+        const novoProduto = await Chamados.create({
+            titulo: titulo,
+            descricao: descricao,
+            status: "pendente",
+            autor: autor,
+        })
+
+        return {mensagem: `O chamado (${titulo}) foi aberto com sucesso!`}
+    } catch (error) {
+        return {erro: `Erro ao abrir o chamado! ${error}`}
+    }
 }
 
-async function executaChamado(id, status, responsavel, data_execucao) {
+async function executaChamado(id, responsavel) {
     try {
         const executaChamado = await Chamados.update(
             {
-                status: status,
+                status: "execucao",
                 responsavel: responsavel,
                 data_execucao: new Date()
             },
@@ -29,12 +35,31 @@ async function executaChamado(id, status, responsavel, data_execucao) {
         )
         return {mensagem: "Chamado atualizado com sucesso!"}
     } catch (error) {
-        return {erro: "Erro ao atualizar o status do chamado!"}
+        return {erro: `Erro ao atualizar o status do chamado! ${error}`}
+    }
+}
+
+async function finalizaChamado(id, solucao) {
+    try {
+        const finalizaChamado = await Chamados.update(
+            {
+                status: "finalizado",
+                data_finalizado: new Date(),
+                solucao: solucao
+            },
+            {where: {id: id}}
+        )
+
+        return {mensagem: "Chamado atualizado com sucesso!"}
+
+    } catch (error) {
+        return {erro: `Erro ao atualizar o status do chamado! ${error}`}
     }
 }
 
 module.exports = {
     todosChamados,
     novoChamado,
-    executaChamado
+    executaChamado,
+    finalizaChamado
 }
