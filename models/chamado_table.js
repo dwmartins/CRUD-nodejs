@@ -8,7 +8,7 @@ const Chamados = database.define('chamados', {
         allowNull: false,
         primaryKey: true
     },
-    nome: {
+    titulo: {
         type: Sequelize.STRING,
         allowNull: false
     },
@@ -16,13 +16,27 @@ const Chamados = database.define('chamados', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    historico:{
+    status:{
         type: Sequelize.STRING,
         allowNull: false
     },
-    responsavel: {
+    autor: {
         type: Sequelize.STRING,
+        allowNull: false
     },
+    responsavel:{
+        type: Sequelize.STRING, 
+        allowNull: true
+    },
+    data_execucao:{
+        type: Sequelize.DATE,
+        allowNull: true
+    },
+    data_finalizado:{
+        type: Sequelize.DataTypes.INTEGER,
+        allowNull: true
+    }
+
 });
 
 module.exports = Chamados;

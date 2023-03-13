@@ -5,8 +5,8 @@ const sequelize = new Sequelize('crud_nodejs', 'root', '', {
     dialect: 'mysql'
 });
 
+sequelize.authenticate();
 try {
-    sequelize.authenticate();
     console.log('Conectado ao banco de dados com sucesso!');
 } catch (error) {
     console.erro('Erro: Erro ao conectar com o banco de dados: ', error);
