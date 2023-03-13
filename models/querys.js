@@ -9,19 +9,16 @@ async function todosChamados() {
 }
 
 async function novoChamado(titulo, descricao, autor) {
-    try {
-        const novoProduto = await Chamados.create({
-            titulo: titulo,
-            descricao: descricao,
-            status: "pendente",
-            autor: autor,
-        })
+    
+    const novoProduto = await Chamados.create({
+        titulo: titulo,
+        descricao: descricao,
+        status: "pendente",
+        autor: autor,
+    });
 
-        return {mensagem: `O chamado (${titulo}) foi aberto com sucesso!`}
-    } catch (error) {
-        return {erro: `Erro ao abrir o chamado! ${error}`}
-    }
-}
+    return
+};
 
 async function executaChamado(id, responsavel) {
     try {
