@@ -7,15 +7,7 @@ router.get('/todos-chamados', async (req, res) => {
     res.json(result);
 });
 
-router.post('/novo-chamado', async (req, res) => {
-    const { titulo, descricao, autor } = req.body;
-    try {
-        const result =  await querys.novoChamado(titulo, descricao, autor);
-        res.status(201).json({mensagem: `O chamado (${titulo}) foi aberto com sucesso!`});
-    } catch (error) {
-        res.status(500).json({erro: `Erro ao abrir o chamado! ${error}`})
-    }
-});
+router.post('/novo-chamado', querys.novoChamado);
 
 router.put('/executa-chamado', async (req, res) => {
     const { id, responsavel } = req.body;

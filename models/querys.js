@@ -8,17 +8,23 @@ async function todosChamados() {
     return produtos;
 }
 
-async function novoChamado(titulo, descricao, autor) {
-    
-    const novoProduto = await Chamados.create({
-        titulo: titulo,
-        descricao: descricao,
-        status: "pendente",
-        autor: autor,
-    });
+async function novoChamado(req, res) {
+    const { titulo, descricao, autor } = req.body;
 
-    return
-};
+    try {
+        const novoProduto = await Chamados.create({
+            titulo: titulo,
+            descricao: descricao,
+            status: "pendente",
+            autor: autor,
+        });
+
+        return res.status(201).json({msg: `O chamado (${titulo}) foi aberto com sucesso!`});
+
+    } catch (error) {
+        return res.status(500).json({erro: `Erro ao abrir o chamado! ${error}`});
+    }
+}
 
 async function executaChamado(id, responsavel) {
   
