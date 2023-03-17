@@ -1,6 +1,5 @@
 const querys = require('../models/querys');
 const express = require('express');
-const { query } = require('express');
 const router = express.Router();
 
 router.get('/todos-chamados', async (req, res) => {
@@ -19,15 +18,33 @@ router.post('/novo-chamado', async (req, res) => {
 });
 
 router.put('/executa-chamado', async (req, res) => {
-    const { id, status, responsavel } = req.body;
-    const resul = await querys.executaChamado(id, responsavel);
-    res.status(201).json(resul);
-})
+    const { id, responsavel } = req.body;
+
+    try {
+        const resul = await querys.executaChamado(id, responsavel);
+        res.status(201).json({mensagem: `O chamado atualizado com sucesso!`});
+    } catch (error) {
+        res.status(500).json({erro: `Erro ao executar o chamado! ${error}`});
+    }
+});
 
 router.put('/finaliza-chamado', async (req, res) => {
     const { id, solucao} = req.body;
-    const resul = await querys.finalizaChamado(id, solucao);
-    res.status(201).json(resul);
+    
+    try {
+        const resul = await querys.finalizaChamado(id, solucao);
+        res.status(201).json({mensagem: `Chamado finalizado com sucesso!`});
+    } catch (error) {
+        res.status(500).json({erro: `Erro ao finalizar o chamado! ${error}`});
+    }
+});
+
+router.delete('/exclui-chamado/:id', async (req, res) => {
+    const { id } = req.params;
+
+    const resul = await querys.excluiChamado(id);
+    res.status(200).json(resul);
+   
 })
 
 module.exports = router;

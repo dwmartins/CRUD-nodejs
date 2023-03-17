@@ -21,36 +21,51 @@ async function novoChamado(titulo, descricao, autor) {
 };
 
 async function executaChamado(id, responsavel) {
-    try {
-        const executaChamado = await Chamados.update(
-            {
-                status: "execucao",
-                responsavel: responsavel,
-                data_execucao: new Date()
-            },
-            {where: {id: id}}
-        )
-        return {mensagem: "Chamado atualizado com sucesso!"}
-    } catch (error) {
-        return {erro: `Erro ao atualizar o status do chamado! ${error}`}
-    }
+  
+    const executaChamado = await Chamados.update(
+        {
+            status: "execucao",
+            responsavel: responsavel,
+            data_execucao: new Date()
+        },
+        {where: {id: id}}
+    )
+    return;
 }
 
 async function finalizaChamado(id, solucao) {
-    try {
-        const finalizaChamado = await Chamados.update(
-            {
-                status: "finalizado",
-                data_finalizado: new Date(),
-                solucao: solucao
-            },
-            {where: {id: id}}
-        )
+    
+    const finalizaChamado = await Chamados.update(
+        {
+            status: "finalizado",
+            data_finalizado: new Date(),
+            solucao: solucao
+        },
+        {where: {id: id}}
+    )
 
-        return {mensagem: "Chamado atualizado com sucesso!"}
+    return;
+}
 
-    } catch (error) {
-        return {erro: `Erro ao atualizar o status do chamado! ${error}`}
+async function excluiChamado(id) {
+
+    const buscaID = await Chamados.findAll({
+        where: {
+            id: id
+        }
+    })
+    
+    if(buscaID == '') {
+        return {msg: `Chamado não encontrado!`};
+    } else {
+       const excluiChamado = await Chamados.destroy({
+        where: {
+            id: id
+        },
+        force: true
+    });
+
+    return {msg: `Chamado excluído com sucesso!`};
     }
 }
 
@@ -58,5 +73,6 @@ module.exports = {
     todosChamados,
     novoChamado,
     executaChamado,
-    finalizaChamado
+    finalizaChamado,
+    excluiChamado
 }
