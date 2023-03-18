@@ -14,7 +14,7 @@ router.put('/executa-chamado', async (req, res) => {
 
     try {
         const resul = await querys.executaChamado(id, responsavel);
-        res.status(201).json({mensagem: `O chamado atualizado com sucesso!`});
+        res.status(201).json({mensagem: `Chamado atualizado com sucesso!`});
     } catch (error) {
         res.status(500).json({erro: `Erro ao executar o chamado! ${error}`});
     }
@@ -37,6 +37,8 @@ router.delete('/exclui-chamado/:id', async (req, res) => {
     const resul = await querys.excluiChamado(id);
     res.status(200).json(resul);
    
-})
+});
+
+router.get('/filtra-chamados', querys.filtraChamados);
 
 module.exports = router;

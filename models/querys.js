@@ -75,10 +75,31 @@ async function excluiChamado(id) {
     }
 }
 
+async function filtraChamados(req, res) {
+    const { status } = req.query;
+
+    try {
+        const filtraChamados = await Chamados.findAll({
+            where: {
+                status: status
+            }
+        })
+
+        if(filtraChamados == '') {
+            res.status(200).json({msg: `Nenhum chamado ${status} encontrado!`});
+        } else {
+            res.status(200).json(filtraChamados);
+        }
+    } catch (error) {
+        res.status(500).json({erro: `Erro ao filtrar os chamados: ${error}`})
+    }
+}
+
 module.exports = {
     todosChamados,
     novoChamado,
     executaChamado,
     finalizaChamado,
-    excluiChamado
+    excluiChamado,
+    filtraChamados
 }
