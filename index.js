@@ -1,13 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-const routes = require('./routes/routes');
+const chamados = require('./routes/chamados');
 const app = express();
 const port = 3000;
 
 app.use(cors());
 app.use(express.json());
 
-app.use('/', routes, (req, res) => {
+app.use('/', chamados, (req, res) => {
     res.status(200);
     res.send(`<h2>Servidor em execução!</h2>`);
 })

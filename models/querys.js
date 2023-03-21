@@ -2,10 +2,14 @@ const database = require('../config/db');
 const Chamados = require('./chamado_table');
 database.sync();
 
-async function todosChamados() {
-    const produtos = await Chamados.findAll();
+async function todosChamados(req, res) {
+    try {
+        const produtos = await Chamados.findAll();
 
-    return produtos;
+        res.status(200).json(produtos);
+    } catch (error) {
+        res.status(500).json({erro: `Erro ao buscar os chamados: ${error}`});
+    }
 }
 
 async function novoChamado(req, res) {
@@ -26,52 +30,69 @@ async function novoChamado(req, res) {
     }
 }
 
-async function executaChamado(id, responsavel) {
-  
-    const executaChamado = await Chamados.update(
-        {
-            status: "execucao",
-            responsavel: responsavel,
-            data_execucao: new Date()
-        },
-        {where: {id: id}}
-    )
-    return;
+async function executaChamado(req, res) {
+    const { id, responsavel } = req.body;
+
+    try {
+        const executaChamado = await Chamados.update(
+            {
+                status: "execucao",
+                responsavel: responsavel,
+                data_execucao: new Date()
+            },
+            {where: {id: id}}
+        )
+
+        res.status(201).json({mensagem: `Chamado atualizado com sucesso!`});
+
+    } catch (error) {
+        res.status(500).json({erro: `Erro ao executar o chamado! ${error}`});
+    }
 }
 
-async function finalizaChamado(id, solucao) {
+async function finalizaChamado(req, res) {
+    const { id, solucao} = req.body;
     
-    const finalizaChamado = await Chamados.update(
-        {
-            status: "finalizado",
-            data_finalizado: new Date(),
-            solucao: solucao
-        },
-        {where: {id: id}}
-    )
-
-    return;
+    try {
+        const finalizaChamado = await Chamados.update(
+            {
+                status: "finalizado",
+                data_finalizado: new Date(),
+                solucao: solucao
+            },
+            {where: {id: id}}
+        )
+        res.status(201).json({mensagem: `Chamado finalizado com sucesso!`});
+    } catch (error) {
+        res.status(500).json({erro: `Erro ao finalizar o chamado! ${error}`});
+    }
 }
 
-async function excluiChamado(id) {
+async function excluiChamado(req, res) {
+    const { id } = req.params;
 
-    const buscaID = await Chamados.findAll({
-        where: {
-            id: id
+    try {
+        const buscaID = await Chamados.findAll({
+            where: {
+                id: id
+            }
+        })
+        
+        if(buscaID == '') {
+            res.status(500).json({msg: `Chamado não encontrado!`});
+
+        } else {
+           const excluiChamado = await Chamados.destroy({
+            where: {
+                id: id
+            },
+            force: true
+        });
+    
+        res.status(200).json({msg: `Chamado excluído com sucesso!`});
         }
-    })
-    
-    if(buscaID == '') {
-        return {msg: `Chamado não encontrado!`};
-    } else {
-       const excluiChamado = await Chamados.destroy({
-        where: {
-            id: id
-        },
-        force: true
-    });
-
-    return {msg: `Chamado excluído com sucesso!`};
+    } catch (error) {
+        res.status(500).json({erro: `Erro ao excluir o chamado ${error}`});
     }
 }
 
