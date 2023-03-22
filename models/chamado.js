@@ -1,5 +1,5 @@
 const database = require('../config/db');
-const Chamados = require('./chamado_table');
+const Chamados = require('./tables/chamado_table');
 database.sync();
 
 async function todosChamados(req, res) {
