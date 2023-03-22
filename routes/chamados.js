@@ -1,17 +1,17 @@
-const querys = require('../models/querys');
+const querys = require('../models/chamado');
 const express = require('express');
-const router = express.Router();
+const chamado = express.Router();
 
-router.get('/todos-chamados', querys.todosChamados);
+chamado.get('/todos-chamados', querys.todosChamados);
 
-router.post('/novo-chamado', querys.novoChamado);
+chamado.post('/novo-chamado', querys.novoChamado);
 
-router.put('/executa-chamado', querys.executaChamado);
+chamado.put('/executa-chamado', querys.executaChamado);
 
-router.put('/finaliza-chamado', querys.finalizaChamado);
+chamado.put('/finaliza-chamado', querys.finalizaChamado);
 
-router.delete('/exclui-chamado/:id', querys.excluiChamado);
+chamado.delete('/exclui-chamado/:id', querys.excluiChamado);
 
-router.get('/filtra-chamados', querys.filtraChamados);
+chamado.get('/filtra-chamados', querys.filtraChamados);
 
-module.exports = router;
+module.exports = chamado;
