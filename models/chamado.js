@@ -13,7 +13,7 @@ async function todosChamados(req, res) {
 }
 
 async function novoChamado(req, res) {
-    const { titulo, descricao, autor } = req.body;
+    const { titulo, descricao, autor, setor } = req.body;
 
     try {
         await Chamados.create({
@@ -21,6 +21,7 @@ async function novoChamado(req, res) {
             descricao: descricao,
             status: "pendente",
             autor: autor,
+            setor: setor
         });
 
         return res.status(201).json({msg: `O chamado (${titulo}) foi aberto com sucesso!`});
@@ -96,17 +97,23 @@ async function excluiChamado(req, res) {
 }
 
 async function filtraChamados(req, res) {
-    const { status } = req.query;
+    const { titulo, status, autor, responsavel, data_execucao, data_finalizado, } = req.query;
+
+    const where = {};
+    if(titulo) where.titulo = titulo;
+    if(status) where.status = status;
+    if(autor) where.autor = autor;
+    if(responsavel) where.responsavel = responsavel;
+    if(data_execucao) where.data_execucao = data_execucao;
+    if(data_finalizado) where.data_finalizado = data_finalizado;
 
     try {
         const filtraChamados = await Chamados.findAll({
-            where: {
-                status: status
-            }
+            where,
         })
 
         if(filtraChamados == '') {
-            res.status(200).json({msg: `Nenhum chamado ${status} encontrado!`});
+            res.status(200).json({msg: `Nenhum chamado encontrado!`});
         } else {
             res.status(200).json(filtraChamados);
         }
