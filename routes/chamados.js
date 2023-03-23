@@ -8,5 +8,6 @@ chamado.put('/executa-chamado', querys.executaChamado);
 chamado.put('/finaliza-chamado', querys.finalizaChamado);
 chamado.delete('/exclui-chamado/:id', querys.excluiChamado);
 chamado.get('/filtra-chamados', querys.filtraChamados);
+chamado.get('/quantidade-chamados', querys.quantidadeRegistros);
 
 module.exports = chamado;

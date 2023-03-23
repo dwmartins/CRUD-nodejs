@@ -122,11 +122,36 @@ async function filtraChamados(req, res) {
     }
 }
 
+async function quantidadeRegistros(req, res) {
+    try {
+        const pendente = await Chamados.count({
+            where: {status: "pendente"}
+        });
+    
+        const execucao = await Chamados.count({
+            where: {status: "execucao"}
+        });
+    
+        const finalizado = await Chamados.count({
+            where: {status: "finalizado"}
+        })
+
+        res.status(200).json({
+            pendente: pendente,
+            execucao: execucao,
+            finalizado: finalizado
+        })
+    } catch (error) {
+        res.status(500).json({Erro: `Erro ao buscar as quantidades de chamados: ${error}`});
+    }
+};
+
 module.exports = {
     todosChamados,
     novoChamado,
     executaChamado,
     finalizaChamado,
     excluiChamado,
-    filtraChamados
+    filtraChamados,
+    quantidadeRegistros
 }
