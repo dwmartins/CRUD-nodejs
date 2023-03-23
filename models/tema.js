@@ -2,11 +2,24 @@ const database = require('../config/db');
 const Tema = require('../models/tables/teme_table');
 database.sync()
 
-async function criaTema() {
+async function criaTema(req, res) {
+    const { id } = req.params;
    
-    await Tema.create({
-        tema: 'light'
-    });
+    try {
+        const tema = await Tema.findAll({
+            where: {id: id}
+        })
+
+        if(tema == '') {
+            await Tema.create({
+                tema: 'light'
+            });
+        }
+
+        res.status(200).json({msg: `Tema iniciado como light`})
+    } catch (error) {
+        res.status(500).json({erro: `Erro ao iniciar o tema!`})
+    }
 }
 
 async function tema(req, res) {
@@ -16,10 +29,6 @@ async function tema(req, res) {
         const tema = await Tema.findAll({
             where: {id: id}
         })
-
-        if(tema == '') {
-            criaTema();
-        }
 
         let novoTema = tema[0].tema;
 
