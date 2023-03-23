@@ -16,7 +16,7 @@ async function novoChamado(req, res) {
     const { titulo, descricao, autor } = req.body;
 
     try {
-        const novoProduto = await Chamados.create({
+        await Chamados.create({
             titulo: titulo,
             descricao: descricao,
             status: "pendente",
@@ -34,11 +34,11 @@ async function executaChamado(req, res) {
     const { id, responsavel } = req.body;
 
     try {
-        const executaChamado = await Chamados.update(
-            {
+        await Chamados.update({
                 status: "execucao",
                 responsavel: responsavel,
                 data_execucao: new Date()
+
             },
             {where: {id: id}}
         )
@@ -54,8 +54,7 @@ async function finalizaChamado(req, res) {
     const { id, solucao} = req.body;
     
     try {
-        const finalizaChamado = await Chamados.update(
-            {
+        await Chamados.update({
                 status: "finalizado",
                 data_finalizado: new Date(),
                 solucao: solucao
