@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const chamados = require('./routes/chamados');
-const tema = require('./routes/teme')
+const chamados = require('./app/routes/chamados');
+const tema = require('./app/routes/teme')
 const app = express();
 const port = 3000;
 require('dotenv').config();
