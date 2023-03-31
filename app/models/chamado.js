@@ -72,17 +72,7 @@ async function excluiChamado(req, res) {
     const { id } = req.params;
 
     try {
-        const buscaID = await Chamados.findAll({
-            where: {
-                id: id
-            }
-        })
-        
-        if(buscaID == '') {
-            res.status(500).json({msg: `Chamado não encontrado!`});
-
-        } else {
-           const excluiChamado = await Chamados.destroy({
+        await Chamados.destroy({
             where: {
                 id: id
             },
@@ -90,7 +80,7 @@ async function excluiChamado(req, res) {
         });
     
         res.status(200).json({msg: `Chamado excluído com sucesso!`});
-        }
+        
     } catch (error) {
         res.status(500).json({erro: `Erro ao excluir o chamado ${error}`});
     }
