@@ -1,8 +1,9 @@
 const express = require('express');
-const querys = require('../models/tema');
-const tema = express.Router();
+const { tema, criaTema } = require('../models/tema');
+require('../models/tema');
+const teme = express.Router();
 
-tema.put('/altera-tema/:id', querys.tema);
-tema.post('/inicia-tema/:id', querys.criaTema);
+teme.put('/altera-tema/:id', tema);
+teme.post('/inicia-tema/:id', criaTema);
 
-module.exports = tema;
+module.exports = teme;
