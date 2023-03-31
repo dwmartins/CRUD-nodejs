@@ -1,6 +1,32 @@
 const database = require('../../config/db');
 const Chamados = require('../../models/tables/chamado_table');
+const { Op } = require('sequelize');
 database.sync();
+
+async function novoChamadoExistente(req, res, next) {
+    const { titulo } = req.body;
+
+    try {
+        const result = await Chamados.findAll({
+            where: {
+                titulo: titulo,
+                [Op.or]: [
+                    {status: "pendente"},
+                    {status: "execucao"}
+                ]
+            }
+        })
+
+        if (result !== '') {
+            res.status(200).json({msg: `Já existe um chamado com o mesmo titulo pendente ou em execução!`});
+        } else {
+            next();
+        }
+
+    } catch (error) {
+        res.status(500).json({erro: `Erro ao verificar se já existe o chamado!`})
+    }
+}
 
 // Verificar se existe o chamados com o id especifico
 async function excluirChamadoInexistente(req, res, next) {
@@ -23,4 +49,6 @@ async function excluirChamadoInexistente(req, res, next) {
     };
 };
 
-module.exports = {excluirChamadoInexistente};
+module.exports = {
+    excluirChamadoInexistente,
+    novoChamadoExistente};
