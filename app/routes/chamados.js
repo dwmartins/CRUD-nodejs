@@ -1,15 +1,15 @@
 const { excluirChamadoInexistente } = require('../middlewares/chamados/middleware');
-const querys = require('../models/chamado');
 const express = require('express');
+const { todosChamados, novoChamado, executaChamado, finalizaChamado, excluiChamado, filtraChamados, quantidadeRegistros } = require('../models/chamado');
 const chamado = express.Router();
 require('../middlewares/chamados/middleware');
 
-chamado.get('/todos-chamados', querys.todosChamados);
-chamado.post('/novo-chamado', querys.novoChamado);
-chamado.put('/executa-chamado', querys.executaChamado);
-chamado.put('/finaliza-chamado', querys.finalizaChamado);
-chamado.delete('/exclui-chamado/:id', excluirChamadoInexistente ,querys.excluiChamado);
-chamado.get('/filtra-chamados', querys.filtraChamados);
-chamado.get('/quantidade-chamados', querys.quantidadeRegistros);
+chamado.get('/todos-chamados', todosChamados);
+chamado.post('/novo-chamado', novoChamado);
+chamado.put('/executa-chamado', executaChamado);
+chamado.put('/finaliza-chamado', finalizaChamado);
+chamado.delete('/exclui-chamado/:id', excluirChamadoInexistente ,excluiChamado);
+chamado.get('/filtra-chamados', filtraChamados);
+chamado.get('/quantidade-chamados', quantidadeRegistros);
 
 module.exports = chamado;
