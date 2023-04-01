@@ -13,18 +13,17 @@ async function todosChamados(req, res) {
 }
 
 async function novoChamado(req, res) {
-    const { titulo, descricao, autor, setor } = req.body;
-
+    const { title, descricao, autor } = req.body;
+    console.log(title)
     try {
         await Chamados.create({
-            titulo: titulo,
+            titulo: title,
             descricao: descricao,
             status: "pendente",
             autor: autor,
-            setor: setor
         });
 
-        return res.status(201).json({msg: `O chamado (${titulo}) foi aberto com sucesso!`});
+        return res.status(201).json({msg: `O chamado (${title}) foi aberto com sucesso!`});
 
     } catch (error) {
         return res.status(500).json({erro: `Erro ao abrir o chamado! ${error}`});

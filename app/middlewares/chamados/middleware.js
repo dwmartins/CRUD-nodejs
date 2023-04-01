@@ -4,27 +4,32 @@ const { Op } = require('sequelize');
 database.sync();
 
 async function novoChamadoExistente(req, res, next) {
-    const { titulo } = req.body;
+    const { title } = req.body;
 
     try {
         const result = await Chamados.findAll({
+            attributes: ['titulo'],
             where: {
-                titulo: titulo,
                 [Op.or]: [
                     {status: "pendente"},
                     {status: "execucao"}
+                ],
+                [Op.and]: [
+                    {titulo: title}
                 ]
             }
         })
 
-        if (result !== '') {
-            res.status(200).json({msg: `Já existe um chamado com o mesmo titulo pendente ou em execução!`});
+        console.log(result)
+
+        if (result != '') {
+            res.status(200).json({msg: `Já existe um chamado com o mesmo titulo, pendente ou em execução!`});
         } else {
             next();
         }
 
     } catch (error) {
-        res.status(500).json({erro: `Erro ao verificar se já existe o chamado!`})
+        res.status(500).json({erro: `Erro ao verificar se já existe o chamado! ${error}`})
     }
 }
 
