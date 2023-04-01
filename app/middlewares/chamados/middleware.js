@@ -18,20 +18,18 @@ async function novoChamadoExistente(req, res, next) {
                     {titulo: title}
                 ]
             }
-        })
-
-        console.log(result)
+        });
 
         if (result != '') {
             res.status(200).json({msg: `Já existe um chamado com o mesmo titulo, pendente ou em execução!`});
         } else {
             next();
-        }
+        };
 
     } catch (error) {
         res.status(500).json({erro: `Erro ao verificar se já existe o chamado! ${error}`})
-    }
-}
+    };
+};
 
 // Verificar se existe o chamados com o id especifico
 async function excluirChamadoInexistente(req, res, next) {
