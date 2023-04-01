@@ -31,6 +31,23 @@ async function novoChamadoExistente(req, res, next) {
     };
 };
 
+// Vai verificar se o chamado com id existe
+async function chamadoInexistente(req, res, next) {
+    const { id } = req.body
+
+    try {
+        const buscaID = await Chamados.findByPk(id);
+
+        if(buscaID == null) {
+            res.status(200).json({msg: `Chamado inexistente!`});
+        } else {
+            next()
+        }
+    } catch (error) {
+        res.status(500).json({msg: `Erro ao buscar o chamado para exclusão ${error}`})
+    };
+};
+
 // Verificar se existe o chamados com o id especifico
 async function excluirChamadoInexistente(req, res, next) {
     const { id } = req.params;
@@ -54,4 +71,5 @@ async function excluirChamadoInexistente(req, res, next) {
 
 module.exports = {
     excluirChamadoInexistente,
-    novoChamadoExistente};
+    novoChamadoExistente,
+    chamadoInexistente};

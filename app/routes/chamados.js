@@ -1,15 +1,15 @@
 const middleware = require('../middlewares/chamados/middleware');
 const express = require('express');
-const { todosChamados, novoChamado, executaChamado, finalizaChamado, excluiChamado, filtraChamados, quantidadeRegistros } = require('../models/chamado');
+const controlers = require('../models/chamado');
 const chamado = express.Router();
 require('../middlewares/chamados/middleware');
 
-chamado.get('/todos-chamados', todosChamados);
-chamado.post('/novo-chamado', middleware.novoChamadoExistente, novoChamado);
-chamado.put('/executa-chamado', executaChamado);
-chamado.put('/finaliza-chamado', finalizaChamado);
-chamado.delete('/exclui-chamado/:id', middleware.excluirChamadoInexistente ,excluiChamado);
-chamado.get('/filtra-chamados', filtraChamados);
-chamado.get('/quantidade-chamados', quantidadeRegistros);
+chamado.get('/todos-chamados', controlers.todosChamados);
+chamado.post('/novo-chamado', middleware.novoChamadoExistente, controlers.novoChamado);
+chamado.put('/executa-chamado', middleware.chamadoInexistente, controlers.executaChamado);
+chamado.put('/finaliza-chamado', middleware.chamadoInexistente, controlers.finalizaChamado);
+chamado.delete('/exclui-chamado/:id', middleware.excluirChamadoInexistente, controlers.excluiChamado);
+chamado.get('/filtra-chamados', controlers.filtraChamados);
+chamado.get('/quantidade-chamados', controlers.quantidadeRegistros);
 
 module.exports = chamado;

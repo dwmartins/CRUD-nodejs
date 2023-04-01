@@ -43,7 +43,7 @@ async function executaChamado(req, res) {
             {where: {id: id}}
         )
 
-        res.status(201).json({mensagem: `Chamado atualizado com sucesso!`});
+        res.status(201).json({mensagem: `Chamado em execução!`});
 
     } catch (error) {
         res.status(500).json({erro: `Erro ao executar o chamado! ${error}`});
