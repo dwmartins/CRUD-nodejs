@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 database.sync();
 
 async function novoChamadoExistente(req, res, next) {
-    const { title } = req.body;
+    const { titulo } = req.body;
 
     try {
         const result = await Chamados.findAll({
@@ -15,7 +15,7 @@ async function novoChamadoExistente(req, res, next) {
                     {status: "execucao"}
                 ],
                 [Op.and]: [
-                    {titulo: title}
+                    {titulo: titulo}
                 ]
             }
         });
