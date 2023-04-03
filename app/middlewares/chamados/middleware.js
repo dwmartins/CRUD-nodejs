@@ -44,7 +44,7 @@ async function chamadoInexistente(req, res, next) {
             next()
         }
     } catch (error) {
-        res.status(500).json({msg: `Erro ao buscar o chamado para exclusão ${error}`})
+        res.status(500).json({erro: `Erro ao buscar o chamado para exclusão ${error}`})
     };
 };
 
@@ -65,7 +65,7 @@ async function excluirChamadoInexistente(req, res, next) {
             next();
         };
     } catch (error) {
-        res.status(500).json({msg: `Erro ao buscar o chamado para exclusão ${error}`})
+        res.status(500).json({erro: `Erro ao buscar o chamado para exclusão ${error}`})
     };
 };
 

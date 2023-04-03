@@ -23,7 +23,7 @@ async function novoChamado(req, res) {
             autor: autor,
         });
 
-        return res.status(201).json({msg: `O chamado (${titulo}) foi aberto com sucesso!`});
+        return res.status(201).json({sucesso: `O chamado (${titulo}) foi aberto com sucesso!`});
 
     } catch (error) {
         return res.status(500).json({erro: `Erro ao abrir o chamado! ${error}`});
@@ -43,7 +43,7 @@ async function executaChamado(req, res) {
             {where: {id: id}}
         )
 
-        res.status(201).json({mensagem: `Chamado em execução!`});
+        res.status(201).json({sucesso: `Chamado em execução!`});
 
     } catch (error) {
         res.status(500).json({erro: `Erro ao executar o chamado! ${error}`});
@@ -61,7 +61,7 @@ async function finalizaChamado(req, res) {
             },
             {where: {id: id}}
         )
-        res.status(201).json({mensagem: `Chamado finalizado com sucesso!`});
+        res.status(201).json({sucesso: `Chamado finalizado com sucesso!`});
     } catch (error) {
         res.status(500).json({erro: `Erro ao finalizar o chamado! ${error}`});
     }
@@ -78,7 +78,7 @@ async function excluiChamado(req, res) {
             force: true
         });
     
-        res.status(200).json({msg: `Chamado excluído com sucesso!`});
+        res.status(200).json({sucesso: `Chamado excluído com sucesso!`});
         
     } catch (error) {
         res.status(500).json({erro: `Erro ao excluir o chamado ${error}`});
@@ -131,7 +131,7 @@ async function quantidadeRegistros(req, res) {
             finalizado: finalizado
         })
     } catch (error) {
-        res.status(500).json({Erro: `Erro ao buscar as quantidades de chamados: ${error}`});
+        res.status(500).json({erro: `Erro ao buscar as quantidades de chamados: ${error}`});
     }
 };
 
