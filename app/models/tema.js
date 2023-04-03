@@ -16,7 +16,7 @@ async function criaTema(req, res) {
             });
         }
 
-        res.status(200).json({msg: `Tema iniciado como light`})
+        res.status(200).json({sucesso: `Tema iniciado como light`})
     } catch (error) {
         res.status(500).json({erro: `Erro ao iniciar o tema!`})
     }
@@ -46,7 +46,7 @@ async function tema(req, res) {
             }
         })
 
-        res.status(200).json({msg: `Tema alterado para ${novoTema}`});
+        res.status(200).json({sucesso: `Tema alterado para ${novoTema}`});
         
 
     } catch (error) {
