@@ -26,11 +26,10 @@ async function tema(req, res) {
     const { id } = req.params;
 
     try {
-        const tema = await Tema.findAll({
-            where: {id: id}
-        })
+        const tema = await Tema.findByPk(id)
 
-        let novoTema = tema[0].tema;
+        console.log(tema)
+        let novoTema = tema.tema;
 
         switch (novoTema) {
             case 'dark':
