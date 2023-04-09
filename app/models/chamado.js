@@ -125,11 +125,11 @@ async function quantidadeRegistros(req, res) {
             where: {status: "finalizado"}
         })
 
-        res.status(200).json({
+        res.status(200).json([{
             pendente: pendente,
             execucao: execucao,
             finalizado: finalizado
-        })
+        }])
     } catch (error) {
         res.status(500).json({erro: `Erro ao buscar as quantidades de chamados: ${error}`});
     }
