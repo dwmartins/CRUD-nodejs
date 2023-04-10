@@ -1,12 +1,16 @@
 const database = require('../config/db');
 const Chamados = require('./tables/chamado_table');
+const moment = require('moment/moment');
 database.sync();
 
 async function todosChamados(req, res) {
     try {
-        const produtos = await Chamados.findAll();
+        const results = await Chamados.findAll();
 
-        res.status(200).json(produtos);
+        results.forEach((el) => el.createdAt = el.createdAt = moment(el.createdAt).format('DD/MM/YYYY'))
+        console.log(results)
+
+        res.status(200).json(results);
     } catch (error) {
         res.status(500).json({erro: `Erro ao buscar os chamados: ${error}`});
     }
