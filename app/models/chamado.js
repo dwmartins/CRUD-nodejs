@@ -5,10 +5,13 @@ database.sync();
 
 async function todosChamados(req, res) {
     try {
-        const results = await Chamados.findAll();
+        results = await Chamados.findAll({
+            order: [
+                ['createdAt', 'ASC']
+            ]
+        });
 
         results.forEach((el) => el.createdAt = el.createdAt = moment(el.createdAt).format('DD/MM/YYYY'))
-        console.log(results)
 
         res.status(200).json(results);
     } catch (error) {
