@@ -92,7 +92,19 @@ async function excluiChamado(req, res) {
         res.status(200).json({sucesso: `Chamado excluído com sucesso!`});
         
     } catch (error) {
-        res.status(500).json({erro: `Erro ao excluir o chamado ${error}`});
+        res.status(500).json({erro: `Erro ao excluir o chamado! ${error}`});
+    }
+}
+
+async function visualizarChamadoId(req, res) {
+    const { id } = req.params;
+
+    try {
+        const results = await Chamados.findByPk(id)    
+
+        res.status(200).json(results)
+    } catch (error) {
+        res.status(500).json({erro: `Erro ao buscar o chamado!`});
     }
 }
 
@@ -153,5 +165,6 @@ module.exports = {
     finalizaChamado,
     excluiChamado,
     filtraChamados,
-    quantidadeRegistros
+    quantidadeRegistros,
+    visualizarChamadoId
 }

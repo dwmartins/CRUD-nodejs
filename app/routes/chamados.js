@@ -11,5 +11,6 @@ chamado.put('/finaliza-chamado', middleware.chamadoInexistente, controlers.final
 chamado.delete('/exclui-chamado/:id', middleware.excluirChamadoInexistente, controlers.excluiChamado);
 chamado.get('/filtra-chamados', controlers.filtraChamados);
 chamado.get('/quantidade-chamados', controlers.quantidadeRegistros);
+chamado.get('/visualizar-chamado/:id', controlers.visualizarChamadoId);
 
 module.exports = chamado;

@@ -34,6 +34,7 @@ async function novoChamadoExistente(req, res, next) {
 // Vai verificar se o chamado com id existe
 async function chamadoInexistente(req, res, next) {
     const { id } = req.body
+    console.log(id)
 
     try {
         const buscaID = await Chamados.findByPk(id);
@@ -44,7 +45,7 @@ async function chamadoInexistente(req, res, next) {
             next()
         }
     } catch (error) {
-        res.status(500).json({erro: `Erro ao buscar o chamado para exclusão ${error}`})
+        res.status(500).json({erro: `Erro ao buscar o chamado ${error}`})
     };
 };
 
