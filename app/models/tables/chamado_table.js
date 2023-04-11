@@ -29,14 +29,18 @@ const Chamados = database.define('chamados', {
         allowNull: true
     },
     data_execucao:{
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
         allowNull: true
     },
     data_finalizado:{
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
         allowNull: true
     },
     solucao: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    data_abertura:{
         type: Sequelize.STRING,
         allowNull: true
     }

@@ -7,11 +7,14 @@ async function todosChamados(req, res) {
     try {
         results = await Chamados.findAll({
             order: [
-                ['createdAt', 'ASC']
+                ['data_abertura', 'ASC']
             ]
         });
 
-        results.forEach((el) => el.createdAt = el.createdAt = moment(el.createdAt).format('DD/MM/YYYY'))
+        results.forEach(el => {
+            el['data_abertura'] = el['data_abertura'] = moment(el['data_abertura']).format("DD/MM/YY, HH:MM");
+            el['data_execucao'] = el['data_execucao'] = moment(el['data_execucao']).format("DD/MM/YY, HH:MM");
+        });
 
         res.status(200).json(results);
     } catch (error) {
@@ -28,6 +31,7 @@ async function novoChamado(req, res) {
             descricao: descricao,
             status: "pendente",
             autor: autor,
+            data_abertura: new Date().toJSON()
         });
 
         return res.status(201).json({sucesso: `O chamado (${titulo}) foi aberto com sucesso!`});
@@ -44,7 +48,7 @@ async function executaChamado(req, res) {
         await Chamados.update({
                 status: "execucao",
                 responsavel: responsavel,
-                data_execucao: new Date()
+                data_execucao: new Date().toJSON()
 
             },
             {where: {id: id}}
@@ -63,7 +67,7 @@ async function finalizaChamado(req, res) {
     try {
         await Chamados.update({
                 status: "finalizado",
-                data_finalizado: new Date(),
+                data_finalizado: new Date().toJSON(),
                 solucao: solucao
             },
             {where: {id: id}}
