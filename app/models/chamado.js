@@ -100,11 +100,20 @@ async function visualizarChamadoId(req, res) {
     const { id } = req.params;
 
     try {
-        const results = await Chamados.findByPk(id)    
+        results = await Chamados.findAll({
+            where: {
+                id:id
+            }
+        })
 
+        results.forEach(el => {
+            el['data_abertura'] = el['data_abertura'] = moment(el['data_abertura']).format("DD/MM/YY, HH:MM");
+            el['data_execucao'] = el['data_execucao'] = moment(el['data_execucao']).format("DD/MM/YY, HH:MM");
+        });
+        
         res.status(200).json(results)
     } catch (error) {
-        res.status(500).json({erro: `Erro ao buscar o chamado!`});
+        res.status(500).json({erro: `Erro ao buscar o chamado! ${error}`});
     }
 }
 
