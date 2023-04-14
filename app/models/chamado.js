@@ -37,7 +37,7 @@ async function novoChamado(req, res) {
         return res.status(201).json([{sucesso: `O chamado ( ${titulo} ) foi aberto com sucesso!`}]);
 
     } catch (error) {
-        return res.status(500).json({erro: `Erro ao abrir o chamado! ${error}`});
+        return res.status(500).json([{erro: `Erro ao abrir o chamado!`}]);
     }
 }
 

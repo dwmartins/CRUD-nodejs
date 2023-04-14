@@ -21,13 +21,13 @@ async function novoChamadoExistente(req, res, next) {
         });
 
         if (result != '') {
-            res.status(200).json({msg: `Já existe um chamado com o mesmo titulo, pendente ou em execução!`});
+            res.status(200).json([{aviso: `Já existe um chamado com o mesmo titulo, pendente ou em execução!`}]);
         } else {
             next();
         };
 
     } catch (error) {
-        res.status(500).json({erro: `Erro ao verificar se já existe o chamado! ${error}`})
+        res.status(500).json([{erro: `Erro ao verificar se já existe o chamado! ${error}`}])
     };
 };
 
