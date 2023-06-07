@@ -72,9 +72,9 @@ async function finalizaChamado(req, res) {
             },
             {where: {id: id}}
         )
-        res.status(201).json({sucesso: `Chamado finalizado com sucesso!`});
+        res.status(201).json([{sucesso: `Chamado finalizado com sucesso!`}]);
     } catch (error) {
-        res.status(500).json({erro: `Erro ao finalizar o chamado! ${error}`});
+        res.status(500).json([{erro: `Erro ao finalizar o chamado! ${error}`}]);
     }
 }
 
